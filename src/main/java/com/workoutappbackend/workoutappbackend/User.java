@@ -11,24 +11,42 @@ import org.springframework.data.annotation.Id;
 public class User {
 
     /**
-     *unique number for the id of the user
+     *generated ID of the user entity
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
+
+    public long getId(){
+        return id;
+    }
+
     /**
      * email address used for login
      */
     private String email;
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public String getEmail(){
+        return email;
+    }
 
     /**
      * password used for login
      */
     private String password;
 
-    /**
-     * no-argument constructor used for JPA
-     */
+    public String getPassword(){
+        return password;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+
     public User(){
 
     }
