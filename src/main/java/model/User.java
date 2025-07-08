@@ -1,8 +1,7 @@
 package com.workoutappbackend.workoutappbackend;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 /**
  * Represents user in workout application
@@ -22,7 +21,7 @@ public class User {
     }
 
     /**
-     * email address used for login
+     * email address data field used for login
      */
     private String email;
 
@@ -35,7 +34,7 @@ public class User {
     }
 
     /**
-     * password used for login
+     * password data field for login
      */
     private String password;
 
@@ -50,4 +49,11 @@ public class User {
     public User(){
 
     }
+
+    /**
+     * One User class will contain many Workout class objects
+     */
+    @OneToMany
+    private List<Workout> workouts;
+
 }
