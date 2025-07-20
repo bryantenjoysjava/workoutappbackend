@@ -1,4 +1,12 @@
 package repository;
+import model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public class UserRepository {
+import java.util.Optional;
+
+/**
+ * Repository for interacting with user entity database
+ */
+public interface UserRepository extends JpaRepository<User, Long>{
+    Optional<User> findByEmail(String email);
 }

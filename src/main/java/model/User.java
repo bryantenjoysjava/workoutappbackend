@@ -1,4 +1,4 @@
-package com.workoutappbackend.workoutappbackend;
+package model;
 import jakarta.persistence.*;
 
 import java.util.List;
