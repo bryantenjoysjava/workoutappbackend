@@ -1,5 +1,4 @@
 package model;
-
 import jakarta.persistence.*;
 
 /**
@@ -8,16 +7,14 @@ import jakarta.persistence.*;
 @Entity
 public class SetDetail {
 
-    /**
-     *generated ID for setsDetail class
-     */
+
+    //generated ID for setsDetail class
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE  )
     private long id;
 
-    /**
-     * sets and reps data fields
-     */
+    //sets and reps data fields
+
     private int sets;
     private int reps;
 
@@ -41,9 +38,6 @@ public class SetDetail {
 
     }
 
-    /**
-     * One Exercise class will have many SetsDetail class objects
-     */
     @ManyToOne
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;

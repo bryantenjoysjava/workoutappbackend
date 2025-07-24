@@ -6,9 +6,6 @@ import org.springframework.stereotype.Service;
 import repository.UserRepository;
 import java.util.Optional;
 
-/**
- * Handles user interaction with application
- */
 
 @Service
 public class UserService {
@@ -19,6 +16,11 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * UserService class constructor
+     * @param userRepository
+     * @param passwordEncoder
+     */
     @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
@@ -32,8 +34,7 @@ public class UserService {
      * @return
      */
     public User registerUser(String email, String password){
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-        if (optionalUser.isPresent()){
+        if (userRepository.findByEmail(email).isPresent()){
             throw new IllegalArgumentException("User already exists");
         }
 
@@ -46,18 +47,58 @@ public class UserService {
     }
 
     /**
-     * checks if user exists through their login information,
+     * logins user to application
      * @param email
      * @param rawPassword
      * @return
      */
     public boolean loginUser(String email, String rawPassword){
-        Optional<User> user = userRepository.findByEmail(email);
-        if(user.isEmpty()){
-            return false;
-        }
-        return passwordEncoder.matches(rawPassword, user.get().getPassword());
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        return passwordEncoder.matches(rawPassword, user.getPassword());
     }
 
+    /**
+     * resets user password
+     * @param email
+     * @param rawPassword
+     * @param newPassword
+     * @return
+     */
+    public void resetPassword(String email, String rawPassword, String newPassword){
+
+        User user = userRepository.findByEmail(email)
+                //checks if user exists
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        //resets user password
+        if (!passwordEncoder.matches(rawPassword, user.getPassword())){
+            throw new IllegalArgumentException("Incorrect Password");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
+
+    /**
+     * deletes user's account
+     * @param email
+     * @return
+     */
+    public void deleteUser(String email, String rawPassword){
+        User user = userRepository.findByEmail(email)
+                //checks if user exists
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+
+        if(passwordEncoder.matches(rawPassword, user.getPassword())){
+            user.setIsDeleted(true);
+        } else{
+            throw new IllegalArgumentException("Incorrect Password");
+        }
+
+        userRepository.save(user);
+    }
 
 }

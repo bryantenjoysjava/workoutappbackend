@@ -9,9 +9,11 @@ import java.util.List;
 @Entity
 public class User {
 
-    /**
-     *generated ID of the user entity
-     */
+    public User(){
+
+    }
+
+    //generated ID of the user entity
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
@@ -20,9 +22,7 @@ public class User {
         return id;
     }
 
-    /**
-     * email address data field used for login
-     */
+    //email address object for workout user
     private String email;
 
     public void setEmail(String email){
@@ -33,9 +33,8 @@ public class User {
         return email;
     }
 
-    /**
-     * password data field for login
-     */
+
+    //password data field for login
     private String password;
 
     public String getPassword(){
@@ -46,13 +45,18 @@ public class User {
         this.password = password;
     }
 
-    public User(){
+    //status of user account
+    private boolean isDeleted = false;
 
+    public boolean getIsDeleted(){
+        return isDeleted;
     }
 
-    /**
-     * One User class will contain many Workout class objects
-     */
+    public void setIsDeleted(boolean isDeleted){
+        this.isDeleted = isDeleted;
+    }
+
+
     @OneToMany
     private List<Workout> workouts;
 

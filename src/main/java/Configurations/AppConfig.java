@@ -6,7 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * configuration file used for encrypting user password through beans
+ *
  */
 @Configuration
 public class AppConfig {

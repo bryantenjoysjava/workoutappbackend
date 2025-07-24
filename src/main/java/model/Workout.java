@@ -20,15 +20,11 @@ public class Workout {
         this.workout = workout;
     }
 
-    /**
-     * One Workout class will contain many Exercise class objects
-     */
+
     @OneToMany(mappedBy = "workout" , cascade = CascadeType.ALL)
     private List<Exercise> exercises;
 
-    /**
-     * Many Workout classes will be encapsulated inside one User class
-     */
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

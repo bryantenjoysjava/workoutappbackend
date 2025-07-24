@@ -8,22 +8,16 @@ import java.util.List;
 @Entity
 public class Exercise {
 
-    /**
-     * Generated ID for exercise class
-     */
+    //Generated ID for exercise class
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
-    /**
-     * exercise data field
-     */
+    //exercise data field
     private String name;
 
 
-    /**
-     * Many Exercise classes will be encapsulated inside one Workout class
-     */
+
     @ManyToOne
     @JoinColumn(name = "workout_id")
     private Workout workout;
